@@ -29,11 +29,13 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
     public function add($element);
 
     /**
-     * Add all values from another collection
+     * Add all values from another collection or array
      *
-     * @param \BuildR\Collection\Interfaces\CollectionInterface $collection
+     * This function may take an array as argument or another collection.
+     *
+     * @param array|\BuildR\Collection\Interfaces\CollectionInterface $elements
      */
-    public function addAll(CollectionInterface $collection);
+    public function addAll($elements);
 
     /**
      * Reset the collection, remove all elements
