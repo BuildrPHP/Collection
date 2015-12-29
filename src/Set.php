@@ -136,8 +136,8 @@ class Set implements CollectionInterface {
      * @inheritDoc
      */
     public function remove($element) {
-        if(isset($this->data[$element])) {
-            unset($this->data[$element]);
+        if(($index = array_search($element, $this->data)) !== FALSE) {
+            unset($this->data[$index]);
 
             return TRUE;
         }
@@ -154,9 +154,7 @@ class Set implements CollectionInterface {
         $result = FALSE;
 
         foreach($elements as $item) {
-            if(isset($this->data[$item])) {
-                unset($this->data[$item]);
-
+            if($this->remove($item) === TRUE) {
                 $result = TRUE;
             }
         }
@@ -172,9 +170,9 @@ class Set implements CollectionInterface {
 
         $result = FALSE;
 
-        foreach($elements as $item) {
-            if(!isset($this->data[$item])) {
-                unset($this->data[$item]);
+        foreach($this->data as $index => $data) {
+            if(array_search($data, $elements) === FALSE) {
+                unset($this->data[$index]);
 
                 $result = TRUE;
             }
@@ -192,6 +190,8 @@ class Set implements CollectionInterface {
 
     /**
      * @inheritDoc
+     *
+     * @codeCoverageIgnore
      */
     public function current() {
         return $this->data[$this->position];
@@ -199,6 +199,8 @@ class Set implements CollectionInterface {
 
     /**
      * @inheritDoc
+     *
+     * @codeCoverageIgnore
      */
     public function next() {
         $this->position++;
@@ -206,6 +208,8 @@ class Set implements CollectionInterface {
 
     /**
      * @inheritDoc
+     *
+     * @codeCoverageIgnore
      */
     public function key() {
         return $this->position;
@@ -213,6 +217,8 @@ class Set implements CollectionInterface {
 
     /**
      * @inheritDoc
+     *
+     * @codeCoverageIgnore
      */
     public function valid() {
         return isset($this->data[$this->position]);
@@ -220,6 +226,8 @@ class Set implements CollectionInterface {
 
     /**
      * @inheritDoc
+     *
+     * @codeCoverageIgnore
      */
     public function rewind() {
         $this->position--;

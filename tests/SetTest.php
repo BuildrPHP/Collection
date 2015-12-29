@@ -101,8 +101,69 @@ class SetTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($this->set->containsAll($anyTestData));
 
         $this->assertTrue($this->set->containsAny($anyTestData));
-        $this->assertFalse($this->set->containsAny(['nonExistElement', NULL, TRUE]));
+        $this->assertFalse($this->set->containsAny(['nonExistElement', NULL, 99]));
+    }
 
+    /**
+     * @dataProvider validTypeDataProvider
+     */
+    public function testCollectionEqualityWithSameContent($itemCount, $testData) {
+        $c1 = new Set($testData);
+        $c2 = new Set($testData);
+
+        $this->assertTrue($c1->equals($c2));
+    }
+
+    public function testEqualsReturnFalseWhenTheCollectionsNotHaveSameSize() {
+        $c1 = new Set(['test']);
+        $c2 = new Set(['test', 99]);
+
+        $this->assertFalse($c1->equals($c2));
+    }
+
+    public function testIsEmpty() {
+        $this->assertTrue($this->set->isEmpty());
+
+        $this->set->add('test');
+
+        $this->assertFalse($this->set->isEmpty());
+    }
+
+    public function testItRemovesElementsProperly() {
+        $this->set->add('test');
+
+        //Removes non-existing element returns false
+        $this->assertFalse($this->set->remove('nonExistingElement'));
+
+        //Returns true when set is modified
+        $this->assertTrue($this->set->remove('test'));
+        $this->assertCount(0, $this->set);
+    }
+
+    public function testIsRemoveMoreElementWithRemoveAll() {
+        $this->set->addAll(['many', 'test', 'data', 'actually', 5]);
+
+        //Return FALSE when set is not modified
+        $this->assertFalse($this->set->removeAll(['non', 'existing', 'elements']));
+
+        //Return TRUE when at least on element will be removed
+        $this->assertTrue($this->set->removeAll(['many', 'non', 'existing', 'element']));
+    }
+
+    public function testSetRetainOnlyTheGivenElements() {
+        $this->set->addAll(['many', 'test', 'data', 'actually', 5]);
+
+        //Returns FALSE when the set is not modified
+        $this->assertFalse($this->set->retainAll(['many', 'test', 'data', 'actually', 5]));
+
+        $this->assertTrue($this->set->retainAll(['many', 5]));
+        $this->assertCount(2, $this->set);
+    }
+
+    public function testSetsCanUsedInIterators() {
+        $this->set->addAll(['many', 'test', 'data', 'actually', 5]);
+
+        $this->assertTrue($this->set instanceof \Traversable);
     }
 
 }
