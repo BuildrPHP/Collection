@@ -24,6 +24,7 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * the collection is modified, FALSE otherwise.
      *
      * @param mixed $element
+     *
      * @return bool
      */
     public function add($element);
@@ -51,6 +52,7 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * FALSE otherwise.
      *
      * @param mixed $element
+     *
      * @return bool
      */
     public function contains($element);
@@ -63,7 +65,8 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * This function may take an array as argument or another collection.
      *
      * @param array|\BuildR\Collection\Interfaces\CollectionInterface $elements
-     * @return mixed
+     *
+     * @return bool
      */
     public function containsAll($elements);
 
@@ -74,7 +77,8 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * This function may tak an array as argument or another collection.
      *
      * @param array|\Buildr\Collection\Interfaces\CollectionInterface $elements
-     * @return mixed
+     *
+     * @return bool
      */
     public function containsAny($elements);
 
@@ -83,6 +87,7 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * Returns TRUE when identical, FALSE otherwise.
      *
      * @param \BuildR\Collection\Interfaces\CollectionInterface $collection
+     *
      * @return bool
      */
     public function equals(CollectionInterface $collection);
@@ -99,6 +104,7 @@ interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInter
      * is modified, FALSE otherwise.
      *
      * @param mixed $element
+     *
      * @return bool
      */
     public function remove($element);

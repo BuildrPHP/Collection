@@ -34,14 +34,14 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __toArray() {
         return $this->data;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function add($element) {
         if(!is_scalar($element)) {
@@ -52,7 +52,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addAll($elements) {
         $elements = $this->checkAndConvertInputCollection($elements);
@@ -63,21 +63,21 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function clear() {
         $this->data = [];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function contains($element) {
         return (array_search($element, $this->data, TRUE) === FALSE) ? FALSE : TRUE;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function containsAll($elements) {
         $elements = $this->checkAndConvertInputCollection($elements);
@@ -96,7 +96,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function containsAny($elements) {
         $elements = $this->checkAndConvertInputCollection($elements);
@@ -111,7 +111,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function equals(CollectionInterface $collection) {
         //First check the size, if this not equals the tow collection
@@ -126,14 +126,14 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isEmpty() {
         return empty($this->data);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function remove($element) {
         if(($index = array_search($element, $this->data)) !== FALSE) {
@@ -146,7 +146,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeAll($elements) {
         $elements = $this->checkAndConvertInputCollection($elements);
@@ -163,7 +163,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function retainAll($elements) {
         $elements = $this->checkAndConvertInputCollection($elements);
@@ -182,14 +182,14 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function size() {
         return (is_array($this->data)) ? count($this->data) : 0;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @codeCoverageIgnore
      */
@@ -198,7 +198,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @codeCoverageIgnore
      */
@@ -207,7 +207,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @codeCoverageIgnore
      */
@@ -216,7 +216,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @codeCoverageIgnore
      */
@@ -225,7 +225,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @codeCoverageIgnore
      */
@@ -234,7 +234,7 @@ class Set implements CollectionInterface {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function count() {
         return $this->size();
