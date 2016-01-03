@@ -1,0 +1,3 @@
+[submodule "codingStandard"]
+	path = codingStandard
+	url = https://github.com/BuildrPHP/Coding-Standard.git
