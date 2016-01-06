@@ -72,7 +72,7 @@ class SetTest extends \PHPUnit_Framework_TestCase {
 
         foreach($testData as $item) {
             $this->assertTrue($this->set->contains($item));
-            $this->assertEquals($testData, $this->set->__toArray());
+            $this->assertEquals($testData, $this->set->toArray());
         }
     }
 

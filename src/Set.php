@@ -36,7 +36,7 @@ class Set implements CollectionInterface {
     /**
      * {@inheritdoc}
      */
-    public function __toArray() {
+    public function toArray() {
         return $this->data;
     }
 
@@ -122,7 +122,7 @@ class Set implements CollectionInterface {
 
         //Use strict comparison to check arrays are equals
         //(Values and orders)
-        return $collection->__toArray() === $this->data;
+        return $collection->toArray() === $this->data;
     }
 
     /**
@@ -247,7 +247,7 @@ class Set implements CollectionInterface {
      */
     protected function checkAndConvertInputCollection($elements) {
         if($elements instanceof CollectionInterface) {
-            $elements = $elements->__toArray();
+            $elements = $elements->toArray();
         }
 
         return $elements;
