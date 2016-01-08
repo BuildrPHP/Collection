@@ -2,8 +2,9 @@
 
 use BuildR\Collection\Exception\CollectionException;
 use BuildR\Collection\Set;
+use BuildR\TestTools\BuildR_TestCase;
 
-class SetTest extends \PHPUnit_Framework_TestCase {
+class SetTest extends BuildR_TestCase {
 
     /**
      * @type \BuildR\Collection\Set
@@ -164,6 +165,19 @@ class SetTest extends \PHPUnit_Framework_TestCase {
         $this->set->addAll(['many', 'test', 'data', 'actually', 5]);
 
         $this->assertTrue($this->set instanceof \Traversable);
+    }
+
+    public function testIsConvertCollectionsToArrayProperly() {
+        $setContent = ['test', 256, .84];
+        $collection = new Set($setContent);
+
+        $options = ['methodParams' => [$collection]];
+        $result = $this->invokeMethod(Set::class, 'checkAndConvertInputCollection', NULL, $options);
+
+        $this->assertTrue(is_array($result));
+        $this->assertCount(3, $result);
+        $this->assertEquals($setContent, $result);
+
     }
 
 }
