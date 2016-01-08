@@ -48,7 +48,9 @@ class Set implements CollectionInterface {
             throw CollectionException::nonScalarTypeGiven(gettype($element));
         }
 
-        $this->data[] = $element;
+        if(!$this->contains($element)) {
+            $this->data[] = $element;
+        }
     }
 
     /**

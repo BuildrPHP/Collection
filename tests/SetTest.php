@@ -49,6 +49,7 @@ class SetTest extends BuildR_TestCase {
             [5, [2, 154, 17854762, -99, PHP_INT_MAX]],
             [3 ,[17e10, .84, 0.002]],
             [3, ['test', 'asd', "test*Value"]],
+            [2, ['test', 'data', 'data']],
         ];
     }
 
@@ -73,7 +74,7 @@ class SetTest extends BuildR_TestCase {
 
         foreach($testData as $item) {
             $this->assertTrue($this->set->contains($item));
-            $this->assertEquals($testData, $this->set->toArray());
+            $this->assertArraySubset($this->set->toArray(), $testData);
         }
     }
 
