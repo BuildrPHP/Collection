@@ -27,14 +27,7 @@ abstract class AbstractCollection implements CollectionInterface {
      * {@inheritdoc}
      */
     public function toArray() {
-        return array_map(function($value) {
-            if((is_object($value) && method_exists($value, 'toArray'))
-                || ($value instanceof ArrayConvertibleInterface)) {
-                return $value->toArray();
-            }
-
-            return $value;
-        }, $this->data);
+        return (array) $this->data;
     }
 
     /**
