@@ -3,7 +3,7 @@
 use BuildR\Collection\Collection\CollectionInterface;
 
 /**
- * This interface provide specific functionality for sets.
+ * This interface provide specific functionality for sets
  *
  * BuildR PHP Framework
  *
@@ -18,11 +18,13 @@ interface SetInterface extends CollectionInterface {
 
     /**
      * Add a new element to the collection. Returns TRUE when
-     * the collection is modified, FALSE otherwise.
+     * the set is modified, FALSE otherwise.
      *
      * @param mixed $element
      *
      * @return bool
+     *
+     * @throws \BuildR\Collection\Exception\CollectionException
      */
     public function add($element);
 
@@ -36,7 +38,7 @@ interface SetInterface extends CollectionInterface {
     public function addAll($elements);
 
     /**
-     * Check that two collections are identical by its contents.
+     * Check that two set are identical by its contents.
      * Returns TRUE when identical, FALSE otherwise.
      *
      * @param \BuildR\Collection\Set\SetInterface $collection
@@ -46,7 +48,7 @@ interface SetInterface extends CollectionInterface {
     public function equals(SetInterface $collection);
 
     /**
-     * Remove the given element from the collection. Returns TRUE when collection
+     * Remove the given element from the set. Returns TRUE when collection
      * is modified, FALSE otherwise.
      *
      * @param mixed $element
@@ -56,7 +58,7 @@ interface SetInterface extends CollectionInterface {
     public function remove($element);
 
     /**
-     * Remove all element from the collection by a given array, or another collection.
+     * Remove all element from the set by a given array, or another collection.
      *
      * This function may tak an array as argument or another collection.
      *
@@ -66,7 +68,7 @@ interface SetInterface extends CollectionInterface {
 
     /**
      * Retain only those elements that contained by the given collection, other
-     * elements gets removed from the collection.
+     * elements gets removed from the set.
      *
      * This function may tak an array as argument or another collection.
      *
