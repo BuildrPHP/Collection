@@ -1,7 +1,7 @@
 <?php namespace BuildR\Collection;
 
+use BuildR\Collection\Collection\AbstractCollection;
 use BuildR\Collection\Exception\CollectionException;
-use BuildR\Collection\Interfaces\CollectionInterface;
 
 /**
  * Set type (Collection implementation)
@@ -16,11 +16,7 @@ use BuildR\Collection\Interfaces\CollectionInterface;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class Set implements CollectionInterface {
-
-    protected $data = [];
-
-    private $position = 0;
+class Set extends AbstractCollection {
 
     /**
      * Set constructor.
@@ -31,13 +27,6 @@ class Set implements CollectionInterface {
         if(is_array($values)) {
             $this->addAll($values);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray() {
-        return $this->data;
     }
 
     /**
@@ -57,82 +46,18 @@ class Set implements CollectionInterface {
      * {@inheritdoc}
      */
     public function addAll($elements) {
-        $elements = $this->checkAndConvertInputCollection($elements);
+        $elements = $this->collectionToArray($elements);
 
         foreach($elements as $item) {
             $this->add($item);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function clear() {
-        $this->data = [];
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function contains($element) {
-        return (array_search($element, $this->data, TRUE) === FALSE) ? FALSE : TRUE;
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function containsAll($elements) {
-        $elements = $this->checkAndConvertInputCollection($elements);
 
-        $result = TRUE;
 
-        foreach($elements as $item) {
-            if($this->contains($item) === FALSE) {
-                $result = FALSE;
 
-                break;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function containsAny($elements) {
-        $elements = $this->checkAndConvertInputCollection($elements);
-
-        foreach($elements as $item) {
-            if($this->contains($item) === TRUE) {
-                return TRUE;
-            }
-        }
-
-        return FALSE;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function equals(CollectionInterface $collection) {
-        //First check the size, if this not equals the tow collection
-        //not be identical
-        if($collection->size() !== $this->size()) {
-            return FALSE;
-        }
-
-        //Use strict comparison to check arrays are equals
-        //(Values and orders)
-        return $collection->toArray() === $this->data;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isEmpty() {
-        return empty($this->data);
-    }
 
     /**
      * {@inheritdoc}
@@ -151,7 +76,7 @@ class Set implements CollectionInterface {
      * {@inheritdoc}
      */
     public function removeAll($elements) {
-        $elements = $this->checkAndConvertInputCollection($elements);
+        $elements = $this->collectionToArray($elements);
 
         $result = FALSE;
 
@@ -168,7 +93,7 @@ class Set implements CollectionInterface {
      * {@inheritdoc}
      */
     public function retainAll($elements) {
-        $elements = $this->checkAndConvertInputCollection($elements);
+        $elements = $this->collectionToArray($elements);
 
         $result = FALSE;
 
@@ -183,76 +108,10 @@ class Set implements CollectionInterface {
         return $result;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function size() {
-        return (is_array($this->data)) ? count($this->data) : 0;
-    }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @codeCoverageIgnore
-     */
-    public function current() {
-        return $this->data[$this->position];
-    }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @codeCoverageIgnore
-     */
-    public function next() {
-        $this->position++;
-    }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @codeCoverageIgnore
-     */
-    public function key() {
-        return $this->position;
-    }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @codeCoverageIgnore
-     */
-    public function valid() {
-        return isset($this->data[$this->position]);
-    }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @codeCoverageIgnore
-     */
-    public function rewind() {
-        $this->position--;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function count() {
-        return $this->size();
-    }
-
-    /**
-     * @param array|\BuildR\Collection\Interfaces\CollectionInterface $elements
-     *
-     * @return array
-     */
-    protected function checkAndConvertInputCollection($elements) {
-        if($elements instanceof CollectionInterface) {
-            $elements = $elements->toArray();
-        }
-
-        return $elements;
-    }
 
 }

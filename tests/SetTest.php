@@ -173,7 +173,7 @@ class SetTest extends BuildR_TestCase {
         $collection = new Set($setContent);
 
         $options = ['methodParams' => [$collection]];
-        $result = $this->invokeMethod(Set::class, 'checkAndConvertInputCollection', NULL, $options);
+        $result = $this->invokeMethod(Set::class, 'collectionToArray', NULL, $options);
 
         $this->assertTrue(is_array($result));
         $this->assertCount(3, $result);
