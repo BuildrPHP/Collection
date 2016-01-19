@@ -1,7 +1,6 @@
 <?php namespace BuildR\Collection\Collection;
 
-use BuildR\Collection\Interfaces\CollectionInterface;
-use BuildR\Foundation\Object\ArrayConvertibleInterface;
+use BuildR\Collection\Collection\CollectionInterface;
 
 /**
  * Abstract collection implementation
@@ -81,21 +80,6 @@ abstract class AbstractCollection implements CollectionInterface {
     /**
      * {@inheritdoc}
      */
-    public function equals(CollectionInterface $collection) {
-        //First check the size, if this not equals the tow collection
-        //not be identical
-        if($collection->size() !== $this->size()) {
-            return FALSE;
-        }
-
-        //Use strict comparison to check arrays are equals
-        //(Values and orders)
-        return $collection->toArray() === $this->data;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isEmpty() {
         return empty($this->data);
     }
@@ -113,7 +97,7 @@ abstract class AbstractCollection implements CollectionInterface {
      * @codeCoverageIgnore
      */
     public function current() {
-        return $this->data[$this->position];
+        return current($this->data);
     }
 
     /**
@@ -160,7 +144,7 @@ abstract class AbstractCollection implements CollectionInterface {
     }
 
     /**
-     * @param array|\BuildR\Collection\Interfaces\CollectionInterface $elements
+     * @param array|\BuildR\Collection\Collection\CollectionInterface $elements
      *
      * @return array
      */

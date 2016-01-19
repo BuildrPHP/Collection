@@ -1,13 +1,13 @@
 <?php namespace BuildR\Collection\Tests;
 
 use BuildR\Collection\Exception\CollectionException;
-use BuildR\Collection\Set;
+use BuildR\Collection\Set\Set;
 use BuildR\TestTools\BuildR_TestCase;
 
 class SetTest extends BuildR_TestCase {
 
     /**
-     * @type \BuildR\Collection\Set
+     * @type \BuildR\Collection\Set\Set
      */
     protected $set;
 

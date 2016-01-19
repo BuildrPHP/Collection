@@ -1,4 +1,4 @@
-<?php namespace BuildR\Collection;
+<?php namespace BuildR\Collection\Set;
 
 use BuildR\Collection\Collection\AbstractCollection;
 use BuildR\Collection\Exception\CollectionException;
@@ -11,12 +11,13 @@ use BuildR\Collection\Exception\CollectionException;
  *
  * @author Zoltán Borsos <zolli07@gmail.com>
  * @package Collection
+ * @subpackage Set
  *
  * @copyright    Copyright 2015, Zoltán Borsos.
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class Set extends AbstractCollection {
+class Set extends AbstractCollection implements SetInterface {
 
     /**
      * Set constructor.
@@ -27,6 +28,21 @@ class Set extends AbstractCollection {
         if(is_array($values)) {
             $this->addAll($values);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function equals(SetInterface $collection) {
+        //First check the size, if this not equals the tow collection
+        //not be identical
+        if($collection->size() !== $this->size()) {
+            return FALSE;
+        }
+
+        //Use strict comparison to check arrays are equals
+        //(Values and orders)
+        return $collection->toArray() === $this->data;
     }
 
     /**
@@ -52,12 +68,6 @@ class Set extends AbstractCollection {
             $this->add($item);
         }
     }
-
-
-
-
-
-
 
     /**
      * {@inheritdoc}
@@ -107,11 +117,5 @@ class Set extends AbstractCollection {
 
         return $result;
     }
-
-
-
-
-
-
 
 }
