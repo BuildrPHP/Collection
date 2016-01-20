@@ -33,6 +33,47 @@ class Set extends AbstractCollection implements SetInterface {
     /**
      * {@inheritdoc}
      */
+    public function contains($element) {
+        return (array_search($element, $this->data, TRUE) === FALSE) ? FALSE : TRUE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function containsAll($elements) {
+        $elements = $this->collectionToArray($elements);
+
+        $result = TRUE;
+
+        foreach($elements as $item) {
+            if($this->contains($item) === FALSE) {
+                $result = FALSE;
+
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function containsAny($elements) {
+        $elements = $this->collectionToArray($elements);
+
+        foreach($elements as $item) {
+            if($this->contains($item) === TRUE) {
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function equals(SetInterface $collection) {
         //First check the size, if this not equals the tow collection
         //not be identical

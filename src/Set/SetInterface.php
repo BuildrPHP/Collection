@@ -38,6 +38,42 @@ interface SetInterface extends CollectionInterface {
     public function addAll($elements);
 
     /**
+     * Determines that the given element is exist in
+     * the current set or not. Returns TRUE if exist
+     * FALSE otherwise.
+     *
+     * @param mixed $element
+     *
+     * @return bool
+     */
+    public function contains($element);
+
+    /**
+     * Check that the given elements contained by this set.
+     * This check use logical AND. Returns TRUE when all elements
+     * is exist, FALSE if at least one not exist.
+     *
+     * This function may take an array as argument or another collection.
+     *
+     * @param array|\BuildR\Collection\Collection\CollectionInterface $elements
+     *
+     * @return bool
+     */
+    public function containsAll($elements);
+
+    /**
+     * Check that from the given elements at least one exist in this set.
+     * Returns TRUE when at least on element is existed, FALSE otherwise.
+     *
+     * This function may tak an array as argument or another collection.
+     *
+     * @param array|\Buildr\Collection\Collection\CollectionInterface $elements
+     *
+     * @return bool
+     */
+    public function containsAny($elements);
+
+    /**
      * Check that two set are identical by its contents.
      * Returns TRUE when identical, FALSE otherwise.
      *

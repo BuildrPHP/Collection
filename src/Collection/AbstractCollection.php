@@ -39,47 +39,6 @@ abstract class AbstractCollection implements CollectionInterface {
     /**
      * {@inheritdoc}
      */
-    public function contains($element) {
-        return (array_search($element, $this->data, TRUE) === FALSE) ? FALSE : TRUE;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function containsAll($elements) {
-        $elements = $this->collectionToArray($elements);
-
-        $result = TRUE;
-
-        foreach($elements as $item) {
-            if($this->contains($item) === FALSE) {
-                $result = FALSE;
-
-                break;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function containsAny($elements) {
-        $elements = $this->collectionToArray($elements);
-
-        foreach($elements as $item) {
-            if($this->contains($item) === TRUE) {
-                return TRUE;
-            }
-        }
-
-        return FALSE;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isEmpty() {
         return empty($this->data);
     }
