@@ -62,6 +62,20 @@ class ArrayList extends AbstractCollection implements ArrayListInterface {
      * {@inheritDoc}
      */
     public function filter(callable $filter) {
+        //@codeCoverageIgnoreStart
+        if(defined('HHVM_VERSION')) {
+            $returnedList = new static();
+
+            foreach($this->data as $index => $value) {
+                if(call_user_func_array($filter, [$value, $index]) === TRUE) {
+                    $returnedList->add($value);
+                }
+            }
+
+            return $returnedList;
+        }
+        //@codeCoverageIgnoreEnd
+
         $result = array_filter($this->data, $filter, ARRAY_FILTER_USE_BOTH);
 
         return new static($result);
