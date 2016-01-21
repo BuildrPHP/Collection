@@ -114,7 +114,7 @@ interface ArrayListInterface extends CollectionInterface {
      * Determines that the current list is contains any value by the input.
      * The input of this method will be an other collection or an array.
      *
-     * @param \BuildR\Collection\Collection\CollectionInterface|array $element
+     * @param \BuildR\Collection\Collection\CollectionInterface|array $elements
      *
      * @return bool
      */
