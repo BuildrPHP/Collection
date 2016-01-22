@@ -105,6 +105,7 @@ class ArrayListTest extends BuildR_TestCase {
 
     /**
      * @dataProvider filteringProvider
+     * @covers BuildR\Collection\ArrayList\ArrayList::filter
      */
     public function testFilteringWorks($expectedResult, callable $filter, $data) {
         $this->list->addAll($data);
