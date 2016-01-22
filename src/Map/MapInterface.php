@@ -79,7 +79,7 @@ interface MapInterface extends CollectionInterface {
      * Returns a list that contains all value contained by
      * this map.
      *
-     * @return \BuildR\Collection\ArrayList\ArrayListInterface
+     * @return \BuildR\Collection\ArrayList\ListInterface
      */
     public function valueList();
 

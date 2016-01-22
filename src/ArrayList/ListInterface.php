@@ -15,7 +15,7 @@ use BuildR\Collection\Collection\CollectionInterface;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-interface ArrayListInterface extends CollectionInterface {
+interface ListInterface extends CollectionInterface {
 
     /**
      * Add a new element to list. This method append the
@@ -64,7 +64,7 @@ interface ArrayListInterface extends CollectionInterface {
      *
      * @param callable $filter
      *
-     * @return \BuildR\Collection\ArrayList\ArrayListInterface
+     * @return \BuildR\Collection\ArrayList\ListInterface
      */
     public function filter(callable $filter);
 
@@ -133,11 +133,11 @@ interface ArrayListInterface extends CollectionInterface {
     /**
      * Check that two list are equals, by comparing all elements of the lists.
      *
-     * @param \BuildR\Collection\ArrayList\ArrayListInterface $collection
+     * @param \BuildR\Collection\ArrayList\ListInterface $collection
      *
      * @return bool
      */
-    public function equals(ArrayListInterface $collection);
+    public function equals(ListInterface $collection);
 
     /**
      * Removes an element in the given index.
@@ -160,7 +160,7 @@ interface ArrayListInterface extends CollectionInterface {
      * @param int $offset
      * @param int $length
      *
-     * @return \BuildR\Collection\ArrayList\ArrayListInterface
+     * @return \BuildR\Collection\ArrayList\ListInterface
      *
      * @see http://php.net/manual/fa/function.array-slice.php
      */

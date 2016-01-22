@@ -15,7 +15,7 @@ use BuildR\Collection\Collection\AbstractCollection;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class ArrayList extends AbstractCollection implements ArrayListInterface {
+class ArrayList extends AbstractCollection implements ListInterface {
 
     /**
      * ArrayList constructor.
@@ -153,7 +153,7 @@ class ArrayList extends AbstractCollection implements ArrayListInterface {
     /**
      * {@inheritDoc}
      */
-    public function equals(ArrayListInterface $collection) {
+    public function equals(ListInterface $collection) {
         if($collection->size() !== $this->size()) {
             return FALSE;
         }
