@@ -126,7 +126,7 @@ interface ArrayListInterface extends CollectionInterface {
      *
      * @param mixed $element
      *
-     * @return int|bool
+     * @return int|bool|string
      */
     public function indexOf($element);
 
