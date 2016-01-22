@@ -63,15 +63,7 @@ class ArrayList extends AbstractCollection implements ListInterface {
      */
     public function filter(callable $filter) {
         if(defined('HHVM_VERSION')) {
-            $returnedList = new static();
-
-            foreach($this->data as $index => $value) {
-                if(call_user_func_array($filter, [$value, $index]) === TRUE) {
-                    $returnedList->add($value);
-                }
-            }
-
-            return $returnedList;
+            return $this->executeHhvmArrayFilter($filter);
         }
 
         $result = array_filter($this->data, $filter, ARRAY_FILTER_USE_BOTH);
@@ -212,6 +204,27 @@ class ArrayList extends AbstractCollection implements ListInterface {
 
             unset($this->data[$index]);
         }
+    }
+
+    /**
+     * The HHVM is not compatible with the $flag attribute that introduced in PHP 5.6
+     * This is a fallback method that provides same functionality on HHVM that
+     * ARRAY_FILTER_BOTH argument on PHP 5.6
+     *
+     * @param callable $filter
+     *
+     * @return static
+     */
+    protected function executeHhvmArrayFilter(callable $filter) {
+        $returnedList = new static();
+
+        foreach($this->data as $index => $value) {
+            if(call_user_func_array($filter, [$value, $index]) === TRUE) {
+                $returnedList->add($value);
+            }
+        }
+
+        return $returnedList;
     }
 
 }
