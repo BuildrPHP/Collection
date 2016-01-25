@@ -38,6 +38,18 @@ interface MapInterface extends CollectionInterface {
     public function containsValue($value);
 
     /**
+     * Determines that the collection contains the exact value
+     * with the given mapping. This is a combination of
+     * containsKey() and containsValue() method.
+     *
+     * @param mixed $key
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function contains($key, $value);
+
+    /**
      * Checks that two maps are equals, by comparing
      * maps sizes and all of its key-value pairs
      *
