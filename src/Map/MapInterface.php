@@ -106,7 +106,7 @@ interface MapInterface extends CollectionInterface {
     /**
      * Put the given element to the map and maps to the given key.
      * If the key is already occupied by another element
-     * the new old element will be returned and overwrite
+     * the old element will be returned and overwrite
      * with the new value
      *
      * @param mixed $key
@@ -121,9 +121,11 @@ interface MapInterface extends CollectionInterface {
      * The result is same as calling the put() method on
      * all element of the given map.
      *
-     * @param \BuildR\Collection\Map\MapInterface $map
+     * This function takes another map or array as argument
+     *
+     * @param \BuildR\Collection\Map\MapInterface|array $map
      */
-    public function putAll(MapInterface $map);
+    public function putAll($map);
 
     /**
      * If the specified key is not already associated with a value
@@ -151,7 +153,7 @@ interface MapInterface extends CollectionInterface {
     /**
      * Removes the mapping for a key, but only if the mapped key
      * value matches the given value. If the key not maps any value
-     * or tha values not equals returns NULL, otherwise
+     * or the values not equals returns NULL, otherwise
      * returns the previous element.
      *
      * @param mixed $key
