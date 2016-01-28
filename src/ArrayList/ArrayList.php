@@ -62,9 +62,11 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function filter(callable $filter) {
+        //@codeCoverageIgnoreStart
         if(defined('HHVM_VERSION')) {
             return $this->executeHhvmArrayFilter($filter);
         }
+        //@codeCoverageIgnoreEnd
 
         $result = array_filter($this->data, $filter, ARRAY_FILTER_USE_BOTH);
 

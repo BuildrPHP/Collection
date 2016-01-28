@@ -105,13 +105,26 @@ class ArrayListTest extends BuildR_TestCase {
 
     /**
      * @dataProvider filteringProvider
-     * @covers BuildR\Collection\ArrayList\ArrayList::filter
      */
     public function testFilteringWorks($expectedResult, callable $filter, $data) {
         $this->list->addAll($data);
 
         /** @type \BuildR\Collection\ArrayList\ArrayList $result */
         $result = $this->list->filter($filter);
+
+        $this->assertEquals($expectedResult, $result->toArray());
+        $this->assertCount(count($expectedResult), $result);
+    }
+
+    /**
+     * @dataProvider filteringProvider
+     */
+    public function testFilteringWorksOnHhvmFallback($expectedResult, callable $filter, $data) {
+        $this->list->addAll($data);
+
+        /** @type \BuildR\Collection\ArrayList\ArrayList $result */
+        $options = ['methodParams' => $filter];
+        $result = $this->invokeMethod(ArrayList::class, 'executeHhvmArrayFilter', $this->list, $options);
 
         $this->assertEquals($expectedResult, $result->toArray());
         $this->assertCount(count($expectedResult), $result);
@@ -238,7 +251,6 @@ class ArrayListTest extends BuildR_TestCase {
 
     /**
      * @dataProvider mixedTypeMultiProvider
-     * @covers \Buildr\Collection\ArrayList\ArrayList::retainAll
      */
     public function testRetainAll($expectedCount, $elements) {
         $this->list->addAll($elements);
