@@ -97,4 +97,194 @@ class HashMapTest extends BuildR_TestCase {
         $this->assertTrue($this->map->containsValue($randElement));
     }
 
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testCalculateEqualityCorrectly($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $map = new HashMap();
+        $map->putAll($elements);
+        $mapIncorrectSize = new HashMap();
+        $mapIncorrectSize->put('test', 'testingValue');
+        $mapCorrectSizeWithDifferentValue = new HashMap();
+        $mapCorrectSizeWithDifferentValue->putAll($this->getFaker()->randomElements(
+            ['test', 25, ['array'], 2e90, TRUE, .75],
+            $elementCount
+        ));
+
+        $this->assertFalse($this->map->equals($mapIncorrectSize));
+        $this->assertFalse($this->map->equals($mapCorrectSizeWithDifferentValue));
+        $this->assertTrue($this->map->equals($map));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testForeachFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+
+        $result = [];
+        $this->map->each(function($key, $value) use(&$result) {
+           $result[$key] = $value;
+        });
+
+        $this->assertCount($elementCount, $result);
+        $this->assertArraySubset($result, $this->map->toArray());
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testGetValueWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $randomIndex = rand(0, $elementCount - 1);
+        $randomReturnValue = $this->getFaker()->randomElements(['test', 25, ['array'], 2e90], 1)[0];
+
+        $this->assertEquals($elements[$randomIndex], $this->map->get($randomIndex));
+        $this->assertNull($this->map->get(99));
+        $this->assertEquals($randomReturnValue, $this->map->get(99, $randomReturnValue));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testReturnsTheKeySetAndValueListCorrectly($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $set = $this->map->keySet();
+        $keys = array_keys($elements);
+        $values = array_values($elements);
+        $list = $this->map->valueList();
+
+        $this->assertEquals($this->map->size(), $set->size());
+        $this->assertArraySubset($keys, $set->toArray());
+
+        $this->assertEquals($this->map->size(), $list->size());
+        $this->assertArraySubset($values, $list->toArray());
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testMergeMapsCorrectly($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $firstHalf = (int) floor($elementCount - rand(1, $elementCount - 1));
+        $lastHalf = (int) $elementCount - $firstHalf;
+
+        $mapOne = new HashMap();
+        $mapTwo = new HashMap();
+
+        $resultOne = array_slice($elements, 0, $firstHalf, TRUE);
+        $resultTwo = array_slice($elements, $firstHalf, $lastHalf, TRUE);
+
+        $mapOne->putAll($resultOne);
+        $mapTwo->putAll($resultTwo);
+
+        $this->assertCount($firstHalf, $mapOne);
+        $this->assertCount($lastHalf, $mapTwo);
+
+        $mapOne->merge($mapTwo);
+
+        $this->assertTrue($this->map->equals($mapOne));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testPutFunctionalityWorks($elementCount, $elements) {
+        $randomValue = $this->getFaker()->word;
+        $randomKey = $this->getFaker()->word;
+
+        $this->assertNull($this->map->put($randomKey, $elements));
+        $this->assertEquals($elements, $this->map->put($randomKey, $randomValue));
+        $this->assertEquals($randomValue, $this->map->get($randomKey));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testPutAllFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $testMap = new HashMap();
+        $testMap->putAll($this->map);
+
+        $this->assertTrue($this->map->equals($testMap));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testPutIfAbsentFunctionalityWorks($elementCount, $elements) {
+        $randomElement = (string) rand(0, $elementCount - 1);
+        $randomElementValue = $elements[$randomElement];
+        $randomKey = $this->getFaker()->word;
+
+        $this->assertNull($this->map->putIfAbsent($randomKey, $randomElementValue));
+        $this->assertEquals($randomElementValue, $this->map->putIfAbsent($randomKey, 'testValue'));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testRemoveFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $randomKey = rand(0, $elementCount - 1);
+        $randomValue = $elements[$randomKey];
+        $randomNonExistKey = $this->getFaker()->word;
+
+        $this->assertNull($this->map->remove($randomNonExistKey));
+        $this->assertEquals($randomValue, $this->map->remove($randomKey));
+        $this->assertCount($elementCount - 1, $this->map);
+        $this->assertArrayNotHasKey($randomKey, $this->map->toArray());
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testRemoveIfFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $randomKey = rand(0, $elementCount - 1);
+        $randomValue = $elements[$randomKey];
+        $randomNonExistingValue = $this->getFaker()->word;
+
+        $this->assertNull($this->map->removeIf($randomKey, $randomNonExistingValue));
+        $this->assertCount($elementCount, $this->map);
+
+        $this->assertEquals($randomValue, $this->map->removeIf($randomKey, $randomValue));
+        $this->assertCount($elementCount - 1, $this->map);
+        $this->assertArrayNotHasKey($randomKey, $this->map->toArray());
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testReplaceFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $randomKey = rand(0, $elementCount - 1);
+        $randomValue = $elements[$randomKey];
+        $randomNonExistKey = $this->getFaker()->word;
+
+        $this->assertNull($this->map->replace($randomNonExistKey, 'test'));
+        $this->assertEquals($randomValue, $this->map->replace($randomKey, 'testerValue'));
+        $this->assertCount($elementCount, $this->map);
+        $this->assertEquals('testerValue', $this->map->get($randomKey));
+    }
+
+    /**
+     * @dataProvider validRandomizedDataProvider
+     */
+    public function testReplaceIfIfFunctionalityWorks($elementCount, $elements) {
+        $this->map->putAll($elements);
+        $randomKey = rand(0, $elementCount - 1);
+        $randomValue = $elements[$randomKey];
+        $randomNonExistingValue = $this->getFaker()->word;
+
+        $this->assertNull($this->map->replaceIf($randomKey, $randomNonExistingValue, 'tester'));
+        $this->assertCount($elementCount, $this->map);
+
+        $this->assertEquals($randomValue, $this->map->replaceIf($randomKey, $randomValue, 'testerValue'));
+        $this->assertCount($elementCount, $this->map);
+        $this->assertEquals('testerValue', $this->map->get($randomKey));
+    }
+
+
 }

@@ -2,6 +2,12 @@
 
 use BuildR\Foundation\Exception\Exception;
 
+/**
+ * Class MapException
+ * @package BuildR\Collection\Exception
+ *
+ * @codeCoverageIgnore
+ */
 class MapException extends Exception {
 
     const MESSAGE_NON_VALID_KEY = "Only scalar keys allowed, %s given in!";
