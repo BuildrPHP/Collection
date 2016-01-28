@@ -3,7 +3,7 @@
 use BuildR\Collection\ArrayList\ArrayList;
 use BuildR\Collection\Collection\AbstractCollection;
 use BuildR\Collection\Exception\MapException;
-use BuildR\Collection\Set\Set;
+use BuildR\Collection\Set\HashSet;
 
 class HashMap extends AbstractCollection implements MapInterface {
 
@@ -77,7 +77,7 @@ class HashMap extends AbstractCollection implements MapInterface {
      * {@inheritDoc}
      */
     public function keySet() {
-        return new Set(array_keys($this->data));
+        return new HashSet(array_keys($this->data));
     }
 
     /**

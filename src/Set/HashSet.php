@@ -17,7 +17,7 @@ use BuildR\Collection\Exception\CollectionException;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class Set extends AbstractCollection implements SetInterface {
+class HashSet extends AbstractCollection implements SetInterface {
 
     /**
      * Set constructor.

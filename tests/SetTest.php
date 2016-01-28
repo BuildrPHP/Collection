@@ -1,7 +1,7 @@
 <?php namespace BuildR\Collection\Tests;
 
 use BuildR\Collection\Exception\CollectionException;
-use BuildR\Collection\Set\Set;
+use BuildR\Collection\Set\HashSet;
 use BuildR\TestTools\BuildR_TestCase;
 
 class SetTest extends BuildR_TestCase {
@@ -12,7 +12,7 @@ class SetTest extends BuildR_TestCase {
     protected $set;
 
     public function setUp() {
-        $this->set = new Set();
+        $this->set = new HashSet();
 
         parent::setUp();
     }
@@ -110,15 +110,15 @@ class SetTest extends BuildR_TestCase {
      * @dataProvider validTypeDataProvider
      */
     public function testCollectionEqualityWithSameContent($itemCount, $testData) {
-        $c1 = new Set($testData);
-        $c2 = new Set($testData);
+        $c1 = new HashSet($testData);
+        $c2 = new HashSet($testData);
 
         $this->assertTrue($c1->equals($c2));
     }
 
     public function testEqualsReturnFalseWhenTheCollectionsNotHaveSameSize() {
-        $c1 = new Set(['test']);
-        $c2 = new Set(['test', 99]);
+        $c1 = new HashSet(['test']);
+        $c2 = new HashSet(['test', 99]);
 
         $this->assertFalse($c1->equals($c2));
     }
@@ -170,10 +170,10 @@ class SetTest extends BuildR_TestCase {
 
     public function testIsConvertCollectionsToArrayProperly() {
         $setContent = ['test', 256, .84];
-        $collection = new Set($setContent);
+        $collection = new HashSet($setContent);
 
         $options = ['methodParams' => [$collection]];
-        $result = $this->invokeMethod(Set::class, 'collectionToArray', NULL, $options);
+        $result = $this->invokeMethod(HashSet::class, 'collectionToArray', NULL, $options);
 
         $this->assertTrue(is_array($result));
         $this->assertCount(3, $result);
