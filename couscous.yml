@@ -1,0 +1,48 @@
+template:
+    url: git://github.com/CouscousPHP/Template-Dark.git
+    index: index.md
+
+exclude:
+    - vendor
+    - buildTools
+
+github:
+    user: BuildRPHP
+    repo: Collection
+
+title: BuildR
+subTitle: Collection
+baseUrl: .
+
+menu:
+    sections:
+        main:
+            name: Getting Started
+            items:
+                home:
+                    text: Introduction
+                    relativeUrl: doc/index.html
+                installation:
+                    text: Installation
+                    relativeUrl: doc/installation.html
+        features:
+            name: Collections
+            items:
+                hashset:
+                    text: HashSet
+                    relativeUrl: doc/hashset.html
+                arraylist:
+                    text: ArrayList
+                    relativeUrl: doc/arraylist.html
+                hashmap:
+                    text: HashMap
+                    relativeUrl: doc/hashmap.html
+        others:
+            name: Others
+            items:
+                api:
+                    text: API Documentation
+                    relativeUrl: doc/api-doc.html
+                testing:
+                  text: Testing
+                  relativeUrl: doc/testing.html
