@@ -1,6 +1,7 @@
 <?php namespace BuildR\Collection\Tests;
 
 use BuildR\Collection\ArrayList\ArrayList;
+use BuildR\Collection\Exception\ListException;
 use BuildR\TestTools\BuildR_TestCase;
 
 class ArrayListTest extends BuildR_TestCase {
@@ -33,13 +34,13 @@ class ArrayListTest extends BuildR_TestCase {
         $class = new \stdClass();
         $class->property = 'test';
 
-        $filterOne = function($element, $index) {
+        $filterOne = function($index, $element) {
             if(is_string($element) || is_array($element)) {
                 return TRUE;
             }
         };
 
-        $filterTwo = function($element, $index) {
+        $filterTwo = function($index, $element) {
             if(($element instanceof \stdClass) && isset($element->property)) {
                 return TRUE;
             }
@@ -49,6 +50,33 @@ class ArrayListTest extends BuildR_TestCase {
             [['test', ['array', 10e2]], $filterOne, ['test', ['array', 10e2], TRUE]],
             [[$class], $filterTwo, [254, $class, function() {}]],
         ];
+    }
+
+    public function indexTestingProvider() {
+        return [
+            ['test', ListException::class, 'The key must be numeric, string given in!', NULL],
+            [[['test' => 'value']], ListException::class, 'The key must be numeric, array given in!', NULL],
+            [[(new \stdClass())], ListException::class, 'The key must be numeric, object given in!', NULL],
+            [[fopen('php://input', 'r')], ListException::class, 'The key must be numeric, resource given in!', NULL],
+            [[NULL], ListException::class, 'The key must be numeric, NULL given in!', NULL],
+            [3.75, NULL, NULL, 3],
+            [2e4, NULL, NULL, 20000],
+            [2, NULL, NULL, 2],
+        ];
+    }
+
+    /**
+     * @dataProvider indexTestingProvider
+     */
+    public function testItValidatesIndexCorrectly($index, $expectedExceptionClass, $expectedExceptionMessage, $eRes) {
+        if($expectedExceptionClass !== NULL) {
+            $this->setExpectedException($expectedExceptionClass, $expectedExceptionMessage);
+        }
+
+        $options = ['methodParams' => $index];
+        $result = $this->invokeMethod(ArrayList::class, 'checkIndex', $this->list, $options);
+
+        $this->assertEquals($eRes, $result);
     }
 
     public function testItConstructWithNewElementsCorrectly() {
@@ -111,20 +139,6 @@ class ArrayListTest extends BuildR_TestCase {
 
         /** @type \BuildR\Collection\ArrayList\ArrayList $result */
         $result = $this->list->filter($filter);
-
-        $this->assertEquals($expectedResult, $result->toArray());
-        $this->assertCount(count($expectedResult), $result);
-    }
-
-    /**
-     * @dataProvider filteringProvider
-     */
-    public function testFilteringWorksOnHhvmFallback($expectedResult, callable $filter, $data) {
-        $this->list->addAll($data);
-
-        /** @type \BuildR\Collection\ArrayList\ArrayList $result */
-        $options = ['methodParams' => $filter];
-        $result = $this->invokeMethod(ArrayList::class, 'executeHhvmArrayFilter', $this->list, $options);
 
         $this->assertEquals($expectedResult, $result->toArray());
         $this->assertCount(count($expectedResult), $result);

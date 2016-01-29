@@ -1,6 +1,8 @@
 <?php namespace BuildR\Collection\ArrayList;
 
 use BuildR\Collection\Collection\AbstractCollection;
+use BuildR\Collection\Exception\ListException;
+use BuildR\Collection\Utils\ArrayFilter;
 
 /**
  * ArrayList implementation
@@ -48,6 +50,8 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function addTo($index, $element) {
+        $index = $this->checkIndex($index);
+
         array_splice($this->data, $index, 0, $element);
     }
 
@@ -55,6 +59,8 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function get($index) {
+        $index = $this->checkIndex($index);
+
         return (isset($this->data[$index])) ? $this->data[$index] : NULL;
     }
 
@@ -62,13 +68,7 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function filter(callable $filter) {
-        //@codeCoverageIgnoreStart
-        if(defined('HHVM_VERSION')) {
-            return $this->executeHhvmArrayFilter($filter);
-        }
-        //@codeCoverageIgnoreEnd
-
-        $result = array_filter($this->data, $filter, ARRAY_FILTER_USE_BOTH);
+        $result = ArrayFilter::execute($this->data, $filter);
 
         return new static($result);
     }
@@ -77,7 +77,9 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function set($index, $element) {
+        $index = $this->checkIndex($index);
         $returns = NULL;
+
         if(isset($this->data[$index])) {
             $returns = $this->data[$index];
         }
@@ -98,6 +100,8 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function containsAt($index) {
+        $index = $this->checkIndex($index);
+
         return isset($this->data[$index]);
     }
 
@@ -167,6 +171,8 @@ class ArrayList extends AbstractCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function removeAt($index) {
+        $index = $this->checkIndex($index);
+
         if(isset($this->data[$index])) {
             unset($this->data[$index]);
         }
@@ -209,24 +215,22 @@ class ArrayList extends AbstractCollection implements ListInterface {
     }
 
     /**
-     * The HHVM is not compatible with the $flag attribute that introduced in PHP 5.6
-     * This is a fallback method that provides same functionality on HHVM that
-     * ARRAY_FILTER_BOTH argument on PHP 5.6
+     * Validates the given index. Check if this a numeric value
+     * and throws an exception if not. If the index is numeric
+     * the value is casted to array and returned.
      *
-     * @param callable $filter
+     * @param mixed $index
      *
-     * @return static
+     * @return int
+     *
+     * @throws \BuildR\Collection\Exception\ListException
      */
-    protected function executeHhvmArrayFilter(callable $filter) {
-        $returnedList = new static();
-
-        foreach($this->data as $index => $value) {
-            if(call_user_func_array($filter, [$value, $index]) === TRUE) {
-                $returnedList->add($value);
-            }
+    protected function checkIndex($index) {
+        if(!is_numeric($index)) {
+            throw ListException::nonNumericIndex(gettype($index));
         }
 
-        return $returnedList;
+        return (int) $index;
     }
 
 }
