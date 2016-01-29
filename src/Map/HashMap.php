@@ -2,10 +2,37 @@
 
 use BuildR\Collection\ArrayList\ArrayList;
 use BuildR\Collection\Collection\AbstractCollection;
+use BuildR\Collection\Collection\FilterableCollectionTrait;
 use BuildR\Collection\Exception\MapException;
 use BuildR\Collection\Set\HashSet;
 
+/**
+ * MapInterface implementation
+ *
+ * BuildR PHP Framework
+ *
+ * @author Zoltán Borsos <zolli07@gmail.com>
+ * @package Collection
+ * @subpackage Map
+ *
+ * @copyright    Copyright 2015, Zoltán Borsos.
+ * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
+ * @link         https://github.com/Zolli/BuildR
+ */
 class HashMap extends AbstractCollection implements MapInterface {
+
+    use FilterableCollectionTrait;
+
+    /**
+     * HashMap constructor.
+     *
+     * @param array|null $content
+     */
+    public function __construct($content = NULL) {
+        if($content !== NULL && is_array($content)) {
+            $this->putAll($content);
+        }
+    }
 
     /**
      * {@inheritDoc}

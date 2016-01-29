@@ -19,7 +19,7 @@
  - [ ] Advanced filtering
  - [ ] Sorting
  - [ ] ArrayList::addAll() should detect numerically indexed arrays and use addTo() method
- - [ ] Add Map::filter() method
+ - [X] Add Map::filter() method
 
 ## Contribution
 

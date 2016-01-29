@@ -59,8 +59,8 @@ interface ListInterface extends CollectionInterface {
      * Returns a new list that only contains the element which the filter is returned.
      * The filter is accept any callable type.
      *
-     * The callable takes two argument, the first is the element and the second is the
-     * index of the element.
+     * The callable takes two argument, the first is the key and the second is the
+     * value of the element.
      *
      * @param callable $filter
      *

@@ -140,6 +140,7 @@ class ArrayListTest extends BuildR_TestCase {
         /** @type \BuildR\Collection\ArrayList\ArrayList $result */
         $result = $this->list->filter($filter);
 
+        $this->assertInstanceOf(ArrayList::class, $this->list);
         $this->assertEquals($expectedResult, $result->toArray());
         $this->assertCount(count($expectedResult), $result);
     }

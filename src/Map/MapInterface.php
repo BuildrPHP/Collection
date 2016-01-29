@@ -60,6 +60,19 @@ interface MapInterface extends CollectionInterface {
     public function equals(MapInterface $map);
 
     /**
+     * Returns a new map that only contains the element which the filter is returned.
+     * The filter is accept any callable type.
+     *
+     * The callable takes two argument, the first is the key and the second is the
+     * value of the element.
+     *
+     * @param callable $filter
+     *
+     * @return \BuildR\Collection\Map\MapInterface
+     */
+    public function filter(callable $filter);
+
+    /**
      * Execute the callback of this map each key-value pair.
      *
      * The callable takes two argument, the first is the key of

@@ -1,8 +1,8 @@
 <?php namespace BuildR\Collection\ArrayList;
 
 use BuildR\Collection\Collection\AbstractCollection;
+use BuildR\Collection\Collection\FilterableCollectionTrait;
 use BuildR\Collection\Exception\ListException;
-use BuildR\Collection\Utils\ArrayFilter;
 
 /**
  * ArrayList implementation
@@ -18,6 +18,8 @@ use BuildR\Collection\Utils\ArrayFilter;
  * @link         https://github.com/Zolli/BuildR
  */
 class ArrayList extends AbstractCollection implements ListInterface {
+
+    use FilterableCollectionTrait;
 
     /**
      * ArrayList constructor.
@@ -62,15 +64,6 @@ class ArrayList extends AbstractCollection implements ListInterface {
         $index = $this->checkIndex($index);
 
         return (isset($this->data[$index])) ? $this->data[$index] : NULL;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function filter(callable $filter) {
-        $result = ArrayFilter::execute($this->data, $filter);
-
-        return new static($result);
     }
 
     /**

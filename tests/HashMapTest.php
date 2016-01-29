@@ -73,6 +73,42 @@ class HashMapTest extends BuildR_TestCase {
         return $returned;
     }
 
+    public function filteringProvider() {
+        $class = new \stdClass();
+        $class->property = 'test';
+
+        $filterOne = function($index, $element) {
+            if(is_string($element) || is_array($element)) {
+                return TRUE;
+            }
+        };
+
+        $filterTwo = function($index, $element) {
+            if(($element instanceof \stdClass) && isset($element->property)) {
+                return TRUE;
+            }
+        };
+
+        return [
+            [['test', ['array', 10e2]], $filterOne, ['test', ['array', 10e2], TRUE]],
+            [[1 => $class], $filterTwo, [254, $class, function() {}]],
+        ];
+    }
+
+    /**
+     * @dataProvider filteringProvider
+     */
+    public function testFilteringWorks($expectedResult, callable $filter, $data) {
+        $this->map->putAll($data);
+
+        /** @type \BuildR\Collection\Map\MapInterface $result */
+        $result = $this->map->filter($filter);
+
+        $this->assertInstanceOf(HashMap::class, $this->map);
+        $this->assertEquals($expectedResult, $result->toArray());
+        $this->assertCount(count($expectedResult), $result);
+    }
+
     /**
      * @dataProvider invalidKeyDataProvider
      */
@@ -102,8 +138,7 @@ class HashMapTest extends BuildR_TestCase {
      */
     public function testCalculateEqualityCorrectly($elementCount, $elements) {
         $this->map->putAll($elements);
-        $map = new HashMap();
-        $map->putAll($elements);
+        $map = new HashMap($elements);
         $mapIncorrectSize = new HashMap();
         $mapIncorrectSize->put('test', 'testingValue');
         $mapCorrectSizeWithDifferentValue = new HashMap();
