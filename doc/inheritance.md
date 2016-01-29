@@ -5,4 +5,4 @@ baseUrl: ..
 
 # Class hierarchy chart
 
-![Collection class hierarchy](/doc/images/hierachy.png)
+![Collection class hierarchy](/collection/doc/images/hierachy.png)
