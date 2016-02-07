@@ -21,8 +21,14 @@ class CollectionException extends Exception {
 
     const MESSAGE_NON_SCALAR_TYPE = "This collection only store scalar types! %s given!";
 
+    const MESSAGE_INVALID_TYPE = "This element is not has valid type for this collection! (%s)";
+
     public static function nonScalarTypeGiven($typeGiven) {
         return self::createByFormat(self::MESSAGE_NON_SCALAR_TYPE, [$typeGiven]);
+    }
+
+    public static function typeException($message) {
+        return self::createByFormat(self::MESSAGE_INVALID_TYPE, [$message]);
     }
 
 }
