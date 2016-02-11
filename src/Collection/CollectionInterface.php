@@ -20,22 +20,6 @@ use \Countable;
 interface CollectionInterface extends Iterator, Countable, ArrayConvertibleInterface {
 
     /**
-     * Set the type of the current collection. The callable must be returns a boolean.
-     * The callable take exactly one argument as the current value
-     *
-     * @param callable $typeCheck The type checker function that returns a boolean
-     * @param string $message
-     */
-    public function setStrictType(callable $typeCheck, $message = NULL);
-
-    /**
-     * Determines that the current collection is strictly typed or not
-     *
-     * @return bool
-     */
-    public function isStrict();
-
-    /**
      * Reset the collection, remove all elements
      * and reset the collection index to 0. Returns itself.
      *

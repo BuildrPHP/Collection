@@ -1,6 +1,7 @@
 <?php namespace BuildR\Collection\Map;
 
 use BuildR\Collection\Collection\CollectionInterface;
+use BuildR\Collection\Collection\StrictlyTypedCollectionInterface;
 
 /**
  * Provides Map specific functions
@@ -15,7 +16,7 @@ use BuildR\Collection\Collection\CollectionInterface;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-interface MapInterface extends CollectionInterface {
+interface MapInterface extends CollectionInterface, StrictlyTypedCollectionInterface {
 
     /**
      * Determines that the current map contains a mapping

@@ -1,6 +1,7 @@
 <?php namespace BuildR\Collection\ArrayList;
 
 use BuildR\Collection\Collection\CollectionInterface;
+use BuildR\Collection\Collection\StrictlyTypedCollectionInterface;
 
 /**
  * Provides ArrayList specific functions
@@ -15,7 +16,7 @@ use BuildR\Collection\Collection\CollectionInterface;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-interface ListInterface extends CollectionInterface {
+interface ListInterface extends CollectionInterface, StrictlyTypedCollectionInterface {
 
     /**
      * Add a new element to list. This method append the

@@ -3,6 +3,7 @@
 use BuildR\Collection\ArrayList\ArrayList;
 use BuildR\Collection\Collection\AbstractCollection;
 use BuildR\Collection\Collection\FilterableCollectionTrait;
+use BuildR\Collection\Collection\StrictlyTypedCollectionTrait;
 use BuildR\Collection\Exception\MapException;
 use BuildR\Collection\Set\HashSet;
 
@@ -22,6 +23,7 @@ use BuildR\Collection\Set\HashSet;
 class HashMap extends AbstractCollection implements MapInterface {
 
     use FilterableCollectionTrait;
+    use StrictlyTypedCollectionTrait;
 
     /**
      * HashMap constructor.

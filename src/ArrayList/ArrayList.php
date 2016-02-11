@@ -2,6 +2,7 @@
 
 use BuildR\Collection\Collection\AbstractCollection;
 use BuildR\Collection\Collection\FilterableCollectionTrait;
+use BuildR\Collection\Collection\StrictlyTypedCollectionTrait;
 use BuildR\Collection\Exception\ListException;
 
 /**
@@ -20,6 +21,7 @@ use BuildR\Collection\Exception\ListException;
 class ArrayList extends AbstractCollection implements ListInterface {
 
     use FilterableCollectionTrait;
+    use StrictlyTypedCollectionTrait;
 
     /**
      * ArrayList constructor.

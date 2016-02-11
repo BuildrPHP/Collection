@@ -23,31 +23,6 @@ abstract class AbstractCollection implements CollectionInterface {
     protected $data = [];
 
     /**
-     * @type NULL|callable
-     */
-    protected $typeChecker;
-
-    /**
-     * @type NULL|string
-     */
-    protected $typeCheckFailMessage;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStrictType(callable $typeCheck, $message = NULL) {
-        $this->typeChecker = $typeCheck;
-        $this->typeCheckFailMessage = $message;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isStrict() {
-        return is_callable($this->typeChecker);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toArray() {
@@ -125,30 +100,6 @@ abstract class AbstractCollection implements CollectionInterface {
      */
     public function count() {
         return $this->size();
-    }
-
-    /**
-     * Executes the type check if the collection is strict. Always
-     * returns true, when the collection is not strictly typed
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     *
-     * @throws \BuildR\Collection\Exception\CollectionException
-     */
-    protected function doTypeCheck($value) {
-        if($this->isStrict()) {
-            $result = (bool) $this->typeChecker($value);
-
-            if($result === FALSE) {
-                $message = ($this->typeCheckFailMessage === NULL) ? gettype($value) : $this->typeCheckFailMessage;
-
-                throw CollectionException::typeException($message);
-            }
-
-            return TRUE;
-        }
     }
 
     /**
