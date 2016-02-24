@@ -57,19 +57,6 @@ interface ListInterface extends CollectionInterface, StrictlyTypedCollectionInte
     public function get($index);
 
     /**
-     * Returns a new list that only contains the element which the filter is returned.
-     * The filter is accept any callable type.
-     *
-     * The callable takes two argument, the first is the key and the second is the
-     * value of the element.
-     *
-     * @param callable $filter
-     *
-     * @return \BuildR\Collection\ArrayList\ListInterface
-     */
-    public function filter(callable $filter);
-
-    /**
      * Set the given index to contains the given element. Any element in the given
      * index will be overwritten by the new value.
      *
