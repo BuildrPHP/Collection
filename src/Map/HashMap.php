@@ -131,6 +131,7 @@ class HashMap extends AbstractTypedCollection implements MapInterface {
      * {@inheritDoc}
      */
     public function put($key, $value) {
+        $this->doTypeCheck($value);
         $this->checkKeyType($key);
         $return = NULL;
 
@@ -207,6 +208,7 @@ class HashMap extends AbstractTypedCollection implements MapInterface {
      * {@inheritDoc}
      */
     public function replace($key, $value) {
+        $this->doTypeCheck($value);
         $this->checkKeyType($key);
 
         if($this->containsKey($key)) {

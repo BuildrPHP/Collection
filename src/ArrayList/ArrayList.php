@@ -36,6 +36,8 @@ class ArrayList extends AbstractTypedCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function add($element) {
+        $this->doTypeCheck($element);
+
         $this->data[] = $element;
     }
 
@@ -52,6 +54,7 @@ class ArrayList extends AbstractTypedCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function addTo($index, $element) {
+        $this->doTypeCheck($element);
         $index = $this->checkIndex($index);
 
         array_splice($this->data, $index, 0, $element);
@@ -70,6 +73,7 @@ class ArrayList extends AbstractTypedCollection implements ListInterface {
      * {@inheritDoc}
      */
     public function set($index, $element) {
+        $this->doTypeCheck($element);
         $index = $this->checkIndex($index);
         $returns = NULL;
 

@@ -14,7 +14,7 @@
 ## ToDo
 
  - [X] Maps
- - [ ] Strictly typed Maps
+ - [X] Strictly typed Maps
  - [X] Array List
  - [ ] Advanced filtering
  - [ ] Sorting
