@@ -1,9 +1,8 @@
 <?php namespace BuildR\Collection\Map;
 
 use BuildR\Collection\ArrayList\ArrayList;
-use BuildR\Collection\Collection\AbstractCollection;
+use BuildR\Collection\Collection\AbstractTypedCollection;
 use BuildR\Collection\Collection\FilterableCollectionTrait;
-use BuildR\Collection\Collection\StrictlyTypedCollectionTrait;
 use BuildR\Collection\Exception\MapException;
 use BuildR\Collection\Set\HashSet;
 
@@ -20,10 +19,9 @@ use BuildR\Collection\Set\HashSet;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class HashMap extends AbstractCollection implements MapInterface {
+class HashMap extends AbstractTypedCollection implements MapInterface {
 
     use FilterableCollectionTrait;
-    use StrictlyTypedCollectionTrait;
 
     /**
      * HashMap constructor.

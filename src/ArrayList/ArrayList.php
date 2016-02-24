@@ -1,8 +1,7 @@
 <?php namespace BuildR\Collection\ArrayList;
 
-use BuildR\Collection\Collection\AbstractCollection;
+use BuildR\Collection\Collection\AbstractTypedCollection;
 use BuildR\Collection\Collection\FilterableCollectionTrait;
-use BuildR\Collection\Collection\StrictlyTypedCollectionTrait;
 use BuildR\Collection\Exception\ListException;
 
 /**
@@ -18,10 +17,9 @@ use BuildR\Collection\Exception\ListException;
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  */
-class ArrayList extends AbstractCollection implements ListInterface {
+class ArrayList extends AbstractTypedCollection implements ListInterface {
 
     use FilterableCollectionTrait;
-    use StrictlyTypedCollectionTrait;
 
     /**
      * ArrayList constructor.

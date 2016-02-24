@@ -1,6 +1,7 @@
 <?php namespace BuildR\Collection\Collection;
 
 use BuildR\Collection\Exception\CollectionException;
+use BuildR\Collection\Collection\CollectionInterface;
 
 /**
  * Abstract collection implementation

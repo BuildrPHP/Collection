@@ -1,5 +1,7 @@
 <?php namespace BuildR\Collection\Collection;
 
+use BuildR\Collection\Exception\CollectionException;
+
 /**
  * Trait for collections that can be strictly typed
  *
@@ -13,7 +15,6 @@
  * @license      https://github.com/Zolli/BuildR/blob/master/LICENSE.md
  * @link         https://github.com/Zolli/BuildR
  *
- * @codeCoverageIgnore
  */
 trait StrictlyTypedCollectionTrait {
 
@@ -54,7 +55,7 @@ trait StrictlyTypedCollectionTrait {
      */
     protected function doTypeCheck($value) {
         if($this->isStrict()) {
-            $result = (bool) $this->typeChecker($value);
+            $result = (bool) call_user_func_array($this->typeChecker, [$value]);
 
             if($result === FALSE) {
                 $message = ($this->typeCheckFailMessage === NULL) ? gettype($value) : $this->typeCheckFailMessage;
