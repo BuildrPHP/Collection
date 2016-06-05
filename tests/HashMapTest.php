@@ -307,11 +307,13 @@ class HashMapTest extends BuildR_TestCase {
     /**
      * @dataProvider validRandomizedDataProvider
      */
-    public function testReplaceIfIfFunctionalityWorks($elementCount, $elements) {
+    public function testReplaceIfFunctionalityWorks($elementCount, $elements) {
         $this->map->putAll($elements);
         $randomKey = rand(0, $elementCount - 1);
         $randomValue = $elements[$randomKey];
-        $randomNonExistingValue = $this->getFaker()->word;
+
+        //Hard-coded unique element
+        $randomNonExistingValue = 'nonExistingValue';
 
         $this->assertNull($this->map->replaceIf($randomKey, $randomNonExistingValue, 'tester'));
         $this->assertCount($elementCount, $this->map);

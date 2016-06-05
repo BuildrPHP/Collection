@@ -193,7 +193,9 @@ class ArrayListTest extends BuildR_TestCase {
 
         $this->assertTrue($this->list->containsAll($elements));
 
-        $elements[] = $this->getFaker()->word;
+        //Hard-coded unique element
+        $elements[] = 'nonExistingElement';
+
         $this->assertFalse($this->list->containsAll($elements));
     }
 
