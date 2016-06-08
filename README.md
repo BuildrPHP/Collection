@@ -9,6 +9,14 @@
 
 # BuildR - Collection
 
+## Installation
+
+### With Composer
+
+```
+composer require buildr/collection
+```
+
 # Documentation
 
 [Collection Documentation](https://docs.zolli.hu/display/BCCO)
