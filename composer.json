@@ -29,7 +29,6 @@
     "buildr/foundation": "0.2.0"
   },
   "require-dev": {
-    "couscous/couscous": "1.4.*",
     "buildr/test-tools": "1.*",
     "phing/phing": "2.*",
     "phpunit/phpunit": "5.*",
